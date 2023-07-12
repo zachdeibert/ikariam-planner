@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "Ikariam Planner",
+    "version": "1.0",
+    "description": "A tool to create plans for the game Ikariam",
+    "icons": {
+        "48": "icon-48.png",
+        "96": "icon-96.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.ikariam.gameforge.com/*"
+            ],
+            "js": [
+                "content-script.js"
+            ]
+        }
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "ikariam-planner@zachdeibert.github.io"
+        }
+    }
+}

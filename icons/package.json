@@ -1,0 +1,12 @@
+{
+    "name": "ikariam-planner-icons",
+    "version": "1.0",
+    "description": "Downloads icons for the Ikariam planner app",
+    "main": "download.js",
+    "dependencies": {
+        "sharp": "^0.32.1"
+    },
+    "scripts": {
+        "start": "./download.js"
+    }
+}
