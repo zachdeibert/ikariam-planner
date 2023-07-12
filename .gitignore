@@ -532,4 +532,5 @@ FodyWeavers.xsd
 
 
 # Project-specific files
+*.ico
 *.png

@@ -4,6 +4,7 @@ const fs = require("fs");
 const https = require("https");
 const path = require("path");
 const sharp = require("sharp");
+const toIco = require("to-ico");
 
 const icons = {
     "https://static.wikia.nocookie.net/ikariam/images/c/c0/Town_hall_l.png": [
@@ -30,6 +31,22 @@ const icons = {
                     "position": "left"
                 }
             }
+        ],
+        [
+            "ui/icon.ico",
+            {
+                "type": "resize",
+                "opts": {
+                    "width": 140,
+                    "height": 140,
+                    "fit": "cover",
+                    "position": "left"
+                }
+            },
+            {
+                "type": "to-ico",
+                "dims": [ 16, 24, 32, 48, 64 ]
+            }
         ]
     ]
 };
@@ -48,24 +65,41 @@ Object.getOwnPropertyNames(icons).forEach(url => {
                         fs.stat(outputFile, (err, stats) => {
                             if (err || stats.mtime.getTime() < selfStats.mtime.getTime()) {
                                 const img = sharp(cacheFile);
+                                const callback = err => {
+                                    if (err) {
+                                        console.error(err);
+                                    } else {
+                                        console.log(`Generated ${outputFile}`);
+                                    }
+                                };
+                                let writer = () => {
+                                    img.toFile(outputFile, callback);
+                                };
                                 for (let j = 1; j < proc.length; ++j) {
                                     const step = proc[j];
                                     switch (step.type) {
                                         case "resize":
                                             img.resize(step.opts);
                                             break;
+                                        case "to-ico":
+                                            writer = () => {
+                                                Promise.all(step.dims.map(dim => img.clone().resize(dim, dim).toBuffer())).then(bufs => {
+                                                    toIco(bufs).then(ico => {
+                                                        fs.writeFile(outputFile, ico, callback);
+                                                    }).catch(err => {
+                                                        console.error(err);
+                                                    });
+                                                }).catch(err => {
+                                                    console.error(err);
+                                                });
+                                            };
+                                            break;
                                         default:
                                             console.error(`Unknown processing step '${step.type}'`);
                                             break;
                                     }
                                 }
-                                img.toFile(outputFile, err => {
-                                    if (err) {
-                                        console.error(err);
-                                    } else {
-                                        console.log(`Generated ${outputFile}`);
-                                    }
-                                });
+                                writer();
                             }
                         });
                     }

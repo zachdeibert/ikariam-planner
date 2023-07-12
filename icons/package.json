@@ -4,7 +4,8 @@
     "description": "Downloads icons for the Ikariam planner app",
     "main": "download.js",
     "dependencies": {
-        "sharp": "^0.32.1"
+        "sharp": "^0.32.1",
+        "to-ico": "^1.1.5"
     },
     "scripts": {
         "start": "./download.js"
