@@ -10,16 +10,28 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*.ikariam.gameforge.com/*"
+                "https://*.ikariam.gameforge.com/?view=*"
             ],
             "js": [
                 "content-script.js"
             ]
         }
     ],
+    "background": {
+        "scripts": [
+            "background-script.js"
+        ],
+        "persistent": false,
+        "type": "module"
+    },
     "browser_specific_settings": {
         "gecko": {
             "id": "ikariam-planner@zachdeibert.github.io"
         }
-    }
+    },
+    "permissions": [
+        "webRequest",
+        "https://*.ikariam.gameforge.com/?view=*",
+        "http://localhost/ikariam-planner/*"
+    ]
 }
