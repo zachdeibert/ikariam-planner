@@ -33,7 +33,7 @@ const icons = {
             }
         ],
         [
-            "ui/icon.ico",
+            "ui/Icons/icon.ico",
             {
                 "type": "resize",
                 "opts": {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace IkariamPlanner {
+namespace IkariamPlanner.Ui {
     public partial class App : Application {
     }
 }

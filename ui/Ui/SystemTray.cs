@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace IkariamPlanner {
+namespace IkariamPlanner.Ui {
     internal class SystemTray : IDisposable {
         private readonly Container container;
         private readonly MenuItem openMenuItem;
