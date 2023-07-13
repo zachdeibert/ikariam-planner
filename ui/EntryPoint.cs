@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace IkariamPlanner {
     public class EntryPoint : IDisposable {
@@ -12,6 +12,7 @@ namespace IkariamPlanner {
 
         private EntryPoint() {
             ui.Shutdown += Quit;
+            ui.Start();
         }
 
         private void Quit() {

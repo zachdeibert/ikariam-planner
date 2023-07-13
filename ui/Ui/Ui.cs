@@ -14,6 +14,9 @@ namespace IkariamPlanner.Ui {
             systemTray.OpenPlanner += Open;
             systemTray.Quit += Quit;
             app.InitializeComponent();
+        }
+
+        public void Start() {
             Dispatcher.Run();
         }
 
