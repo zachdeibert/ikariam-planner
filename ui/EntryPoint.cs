@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 
 namespace IkariamPlanner {
     public class EntryPoint : IDisposable {
+        private readonly Server.Server server = new Server.Server();
         private readonly Ui.Ui ui = new Ui.Ui();
         private bool disposedValue = false;
 
@@ -23,6 +24,7 @@ namespace IkariamPlanner {
             if (!disposedValue) {
                 if (disposing) {
                     ui.Dispose();
+                    server.Dispose();
                 }
                 disposedValue = true;
             }
