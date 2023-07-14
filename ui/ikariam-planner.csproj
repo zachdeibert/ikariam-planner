@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\StoredModel.cs" />
+    <Compile Include="Model\ViewModel.cs" />
     <Compile Include="Server\FileStore.cs" />
     <Compile Include="Server\Packet.cs" />
     <Compile Include="Server\Server.cs" />

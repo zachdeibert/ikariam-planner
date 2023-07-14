@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Windows.Threading;
+using IkariamPlanner.Model;
 
 namespace IkariamPlanner.Ui {
     internal class Ui : IDisposable {
         private readonly SystemTray SystemTray = new SystemTray();
         private readonly App App = new App();
+        private readonly StoredModel Model;
         private MainWindow Window;
         private bool DisposedValue = false;
 
         public event Action Shutdown;
 
-        public Ui() {
+        public Ui(StoredModel model) {
+            Model = model;
             SystemTray.OpenPlanner += Open;
             SystemTray.Quit += Quit;
             App.InitializeComponent();
@@ -26,7 +29,9 @@ namespace IkariamPlanner.Ui {
 
         public void Open(bool activate) {
             if (Window == null) {
-                Window = new MainWindow();
+                Window = new MainWindow {
+                    DataContext = new ViewModel(Model)
+                };
                 Window.Show();
                 Window.Closed += WindowClosed;
             } else if (activate) {

@@ -4,7 +4,7 @@ using System.Windows;
 namespace IkariamPlanner {
     public class EntryPoint : IDisposable {
         private readonly Server.Server Server = new Server.Server();
-        private readonly Ui.Ui Ui = new Ui.Ui();
+        private readonly Ui.Ui Ui;
         private bool DisposedValue = false;
 
         [STAThread]
@@ -13,6 +13,7 @@ namespace IkariamPlanner {
         }
 
         private EntryPoint() {
+            Ui = new Ui.Ui(Server.Model);
             Server.PacketReceived += PacketReceived;
             Ui.Shutdown += Quit;
             Ui.Start();
