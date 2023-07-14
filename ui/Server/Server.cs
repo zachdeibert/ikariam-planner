@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Net;
 using System.Text;
+using IkariamPlanner.Model;
 
 namespace IkariamPlanner.Server {
     internal class Server : IDisposable {
         private static readonly byte[] SuccessResponse = Encoding.UTF8.GetBytes("OK");
         private readonly HttpListener Listener = new HttpListener();
+        private readonly FileStore FileStore = new FileStore();
         private bool DisposedValue = false;
 
+        public readonly StoredModel Model;
         public event Action PacketReceived;
 
         public Server() {
+            Model = FileStore.LoadModel();
             Listener.Prefixes.Add("http://*:5357/ikariam-planner/");
             Listener.Start();
             StartReceive();
@@ -45,7 +49,8 @@ namespace IkariamPlanner.Server {
                     }
                 }
                 if (pkt != null) {
-                    Console.WriteLine(pkt.ToString());
+                    FileStore.SavePacket(pkt);
+                    FileStore.SaveModel(Model);
                     PacketReceived?.Invoke();
                 }
             });
@@ -55,6 +60,7 @@ namespace IkariamPlanner.Server {
             if (!DisposedValue) {
                 if (disposing) {
                     Listener.Stop();
+                    FileStore.Dispose();
                 }
                 DisposedValue = true;
             }
