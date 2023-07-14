@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace IkariamPlanner {
     public class EntryPoint : IDisposable {
@@ -12,8 +13,13 @@ namespace IkariamPlanner {
         }
 
         private EntryPoint() {
+            server.PacketReceived += PacketReceived;
             ui.Shutdown += Quit;
             ui.Start();
+        }
+
+        private void PacketReceived() {
+            Application.Current.Dispatcher.Invoke(() => ui.Open(false));
         }
 
         private void Quit() {
@@ -23,6 +29,8 @@ namespace IkariamPlanner {
         protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
                 if (disposing) {
+                    ui.Shutdown -= Quit;
+                    server.PacketReceived -= PacketReceived;
                     ui.Dispose();
                     server.Dispose();
                 }

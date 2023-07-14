@@ -8,6 +8,8 @@ namespace IkariamPlanner.Server {
         private readonly HttpListener listener = new HttpListener();
         private bool disposedValue = false;
 
+        public event Action PacketReceived;
+
         public Server() {
             listener.Prefixes.Add("http://*:5357/ikariam-planner/");
             listener.Start();
@@ -44,6 +46,7 @@ namespace IkariamPlanner.Server {
                 }
                 if (pkt != null) {
                     Console.WriteLine(pkt.ToString());
+                    PacketReceived?.Invoke();
                 }
             });
         }

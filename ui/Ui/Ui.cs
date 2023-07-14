@@ -20,12 +20,16 @@ namespace IkariamPlanner.Ui {
             Dispatcher.Run();
         }
 
-        public void Open() {
+        private void Open() {
+            Open(true);
+        }
+
+        public void Open(bool activate) {
             if (window == null) {
                 window = new MainWindow();
                 window.Show();
                 window.Closed += WindowClosed;
-            } else {
+            } else if (activate) {
                 window.Activate();
             }
         }
