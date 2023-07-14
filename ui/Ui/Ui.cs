@@ -3,17 +3,17 @@ using System.Windows.Threading;
 
 namespace IkariamPlanner.Ui {
     internal class Ui : IDisposable {
-        private readonly SystemTray systemTray = new SystemTray();
-        private readonly App app = new App();
-        private MainWindow window;
-        private bool disposedValue = false;
+        private readonly SystemTray SystemTray = new SystemTray();
+        private readonly App App = new App();
+        private MainWindow Window;
+        private bool DisposedValue = false;
 
         public event Action Shutdown;
 
         public Ui() {
-            systemTray.OpenPlanner += Open;
-            systemTray.Quit += Quit;
-            app.InitializeComponent();
+            SystemTray.OpenPlanner += Open;
+            SystemTray.Quit += Quit;
+            App.InitializeComponent();
         }
 
         public void Start() {
@@ -25,18 +25,18 @@ namespace IkariamPlanner.Ui {
         }
 
         public void Open(bool activate) {
-            if (window == null) {
-                window = new MainWindow();
-                window.Show();
-                window.Closed += WindowClosed;
+            if (Window == null) {
+                Window = new MainWindow();
+                Window.Show();
+                Window.Closed += WindowClosed;
             } else if (activate) {
-                window.Activate();
+                Window.Activate();
             }
         }
 
         private void WindowClosed(object sender, EventArgs e) {
-            window.Closed -= WindowClosed;
-            window = null;
+            Window.Closed -= WindowClosed;
+            Window = null;
         }
 
         private void Quit() {
@@ -46,14 +46,14 @@ namespace IkariamPlanner.Ui {
         }
 
         protected virtual void Dispose(bool disposing) {
-            if (!disposedValue) {
+            if (!DisposedValue) {
                 if (disposing) {
-                    app.Shutdown();
-                    systemTray.Quit -= Quit;
-                    systemTray.OpenPlanner -= Open;
-                    systemTray.Dispose();
+                    App.Shutdown();
+                    SystemTray.Quit -= Quit;
+                    SystemTray.OpenPlanner -= Open;
+                    SystemTray.Dispose();
                 }
-                disposedValue = true;
+                DisposedValue = true;
             }
         }
 

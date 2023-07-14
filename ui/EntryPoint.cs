@@ -3,9 +3,9 @@ using System.Windows;
 
 namespace IkariamPlanner {
     public class EntryPoint : IDisposable {
-        private readonly Server.Server server = new Server.Server();
-        private readonly Ui.Ui ui = new Ui.Ui();
-        private bool disposedValue = false;
+        private readonly Server.Server Server = new Server.Server();
+        private readonly Ui.Ui Ui = new Ui.Ui();
+        private bool DisposedValue = false;
 
         [STAThread]
         public static void Main(string[] args) {
@@ -13,13 +13,13 @@ namespace IkariamPlanner {
         }
 
         private EntryPoint() {
-            server.PacketReceived += PacketReceived;
-            ui.Shutdown += Quit;
-            ui.Start();
+            Server.PacketReceived += PacketReceived;
+            Ui.Shutdown += Quit;
+            Ui.Start();
         }
 
         private void PacketReceived() {
-            Application.Current.Dispatcher.Invoke(() => ui.Open(false));
+            Application.Current.Dispatcher.Invoke(() => Ui.Open(false));
         }
 
         private void Quit() {
@@ -27,14 +27,14 @@ namespace IkariamPlanner {
         }
 
         protected virtual void Dispose(bool disposing) {
-            if (!disposedValue) {
+            if (!DisposedValue) {
                 if (disposing) {
-                    ui.Shutdown -= Quit;
-                    server.PacketReceived -= PacketReceived;
-                    ui.Dispose();
-                    server.Dispose();
+                    Ui.Shutdown -= Quit;
+                    Server.PacketReceived -= PacketReceived;
+                    Ui.Dispose();
+                    Server.Dispose();
                 }
-                disposedValue = true;
+                DisposedValue = true;
             }
         }
 

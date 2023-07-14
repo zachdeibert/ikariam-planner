@@ -4,20 +4,20 @@ using System.Text;
 
 namespace IkariamPlanner.Server {
     internal class Server : IDisposable {
-        private static readonly byte[] successResponse = Encoding.UTF8.GetBytes("OK");
-        private readonly HttpListener listener = new HttpListener();
-        private bool disposedValue = false;
+        private static readonly byte[] SuccessResponse = Encoding.UTF8.GetBytes("OK");
+        private readonly HttpListener Listener = new HttpListener();
+        private bool DisposedValue = false;
 
         public event Action PacketReceived;
 
         public Server() {
-            listener.Prefixes.Add("http://*:5357/ikariam-planner/");
-            listener.Start();
+            Listener.Prefixes.Add("http://*:5357/ikariam-planner/");
+            Listener.Start();
             StartReceive();
         }
 
         private void StartReceive() {
-            listener.GetContextAsync().ContinueWith(ctx => {
+            Listener.GetContextAsync().ContinueWith(ctx => {
                 Packet pkt = null;
                 try {
                     if (ctx.IsCompleted) {
@@ -28,15 +28,15 @@ namespace IkariamPlanner.Server {
                                 break;
                             case "POST":
                                 pkt = new Packet(ctx.Result.Request);
-                                ctx.Result.Response.ContentLength64 = successResponse.Length;
-                                ctx.Result.Response.OutputStream.Write(successResponse, 0, successResponse.Length);
+                                ctx.Result.Response.ContentLength64 = SuccessResponse.Length;
+                                ctx.Result.Response.OutputStream.Write(SuccessResponse, 0, SuccessResponse.Length);
                                 break;
                             default:
                                 break;
                         }
                         ctx.Result.Response.Close();
                     }
-                    if (listener.IsListening) {
+                    if (Listener.IsListening) {
                         StartReceive();
                     }
                 } catch (AggregateException ex) {
@@ -52,11 +52,11 @@ namespace IkariamPlanner.Server {
         }
 
         protected virtual void Dispose(bool disposing) {
-            if (!disposedValue) {
+            if (!DisposedValue) {
                 if (disposing) {
-                    listener.Stop();
+                    Listener.Stop();
                 }
-                disposedValue = true;
+                DisposedValue = true;
             }
         }
 

@@ -7,26 +7,26 @@ using System.Xml;
 
 namespace IkariamPlanner.Server {
     internal class Packet {
-        public readonly string server;
-        public readonly IReadOnlyDictionary<string, string> query;
-        public readonly XmlDocument page;
+        public readonly string Server;
+        public readonly IReadOnlyDictionary<string, string> Query;
+        public readonly XmlDocument Page;
 
         public Packet(HttpListenerRequest req) {
             string[] path = req.Url.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            server = path[path.Length - 1];
-            query = req.Url.Query.Split('&').Select(x => x.Split(new[] { '=' }, 2)).ToDictionary(x => x[0], x => x[1]);
-            page = new XmlDocument();
-            page.Load(req.InputStream);
+            Server = path[path.Length - 1];
+            Query = req.Url.Query.Split('&').Select(x => x.Split(new[] { '=' }, 2)).ToDictionary(x => x[0], x => x[1]);
+            Page = new XmlDocument();
+            Page.Load(req.InputStream);
         }
 
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Server = '{server}'");
+            sb.AppendLine($"Server = '{Server}'");
             sb.AppendLine("Query:");
-            foreach (KeyValuePair<string, string> kvp in query) {
+            foreach (KeyValuePair<string, string> kvp in Query) {
                 sb.AppendLine($"    '{kvp.Key}' = '{kvp.Value}'");
             }
-            page.WriteTo(XmlWriter.Create(sb));
+            Page.WriteTo(XmlWriter.Create(sb));
             return sb.ToString();
         }
     }

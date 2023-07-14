@@ -5,38 +5,38 @@ using System.Windows.Forms;
 
 namespace IkariamPlanner.Ui {
     internal class SystemTray : IDisposable {
-        private readonly Container container;
-        private readonly MenuItem openMenuItem;
-        private readonly MenuItem launchMenuItem;
-        private readonly MenuItem quitMenuItem;
-        private readonly ContextMenu menu;
-        private readonly NotifyIcon notifyIcon;
-        private bool disposedValue = false;
+        private readonly Container Container;
+        private readonly MenuItem OpenMenuItem;
+        private readonly MenuItem LaunchMenuItem;
+        private readonly MenuItem QuitMenuItem;
+        private readonly ContextMenu Menu;
+        private readonly NotifyIcon NotifyIcon;
+        private bool DisposedValue = false;
 
         public event Action OpenPlanner;
         public event Action Quit;
 
         public SystemTray() {
-            container = new Container();
-            openMenuItem = new MenuItem() {
+            Container = new Container();
+            OpenMenuItem = new MenuItem() {
                 Index = 0,
                 Text = "Open Planner"
             };
-            openMenuItem.Click += DoOpenPlanner;
-            launchMenuItem = new MenuItem() {
+            OpenMenuItem.Click += DoOpenPlanner;
+            LaunchMenuItem = new MenuItem() {
                 Index = 1,
                 Text = "Launch Ikariam"
             };
-            launchMenuItem.Click += DoLaunchIkariam;
-            quitMenuItem = new MenuItem() {
+            LaunchMenuItem.Click += DoLaunchIkariam;
+            QuitMenuItem = new MenuItem() {
                 Index = 2,
                 Text = "Quit"
             };
-            quitMenuItem.Click += DoQuit;
-            menu = new ContextMenu();
-            menu.MenuItems.AddRange(new[] { openMenuItem, launchMenuItem, quitMenuItem });
-            notifyIcon = new NotifyIcon(container) {
-                ContextMenu = menu,
+            QuitMenuItem.Click += DoQuit;
+            Menu = new ContextMenu();
+            Menu.MenuItems.AddRange(new[] { OpenMenuItem, LaunchMenuItem, QuitMenuItem });
+            NotifyIcon = new NotifyIcon(Container) {
+                ContextMenu = Menu,
                 Icon = Properties.Resources.AppIcon,
                 Text = "Ikariam Planner",
                 Visible = true
@@ -44,19 +44,19 @@ namespace IkariamPlanner.Ui {
         }
 
         protected virtual void Dispose(bool disposing) {
-            if (!disposedValue) {
+            if (!DisposedValue) {
                 if (disposing) {
-                    quitMenuItem.Click -= DoQuit;
-                    quitMenuItem.Dispose();
-                    launchMenuItem.Click -= DoLaunchIkariam;
-                    launchMenuItem.Dispose();
-                    openMenuItem.Click -= DoOpenPlanner;
-                    openMenuItem.Dispose();
-                    menu.Dispose();
-                    notifyIcon.Dispose();
-                    container.Dispose();
+                    QuitMenuItem.Click -= DoQuit;
+                    QuitMenuItem.Dispose();
+                    LaunchMenuItem.Click -= DoLaunchIkariam;
+                    LaunchMenuItem.Dispose();
+                    OpenMenuItem.Click -= DoOpenPlanner;
+                    OpenMenuItem.Dispose();
+                    Menu.Dispose();
+                    NotifyIcon.Dispose();
+                    Container.Dispose();
                 }
-                disposedValue = true;
+                DisposedValue = true;
             }
         }
 
