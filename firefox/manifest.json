@@ -30,6 +30,7 @@
         }
     },
     "permissions": [
+        "tabs",
         "webRequest",
         "https://*.ikariam.gameforge.com/?view=*",
         "http://localhost/ikariam-planner/*"
