@@ -10,6 +10,7 @@ namespace IkariamPlanner.Server {
         public readonly string Server;
         public readonly IReadOnlyDictionary<string, string> Query;
         public readonly XmlDocument Page;
+        public readonly XmlNamespaceManager Xmlns;
 
         public Packet(HttpListenerRequest req) {
             string[] path = req.Url.AbsolutePath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
@@ -17,6 +18,8 @@ namespace IkariamPlanner.Server {
             Query = req.Url.Query.Split('&').Select(x => x.Split(new[] { '=' }, 2)).ToDictionary(x => x[0], x => x[1]);
             Page = new XmlDocument();
             Page.Load(req.InputStream);
+            Xmlns = new XmlNamespaceManager(Page.NameTable);
+            Xmlns.AddNamespace("html", "http://www.w3.org/1999/xhtml");
         }
 
         public override string ToString() {

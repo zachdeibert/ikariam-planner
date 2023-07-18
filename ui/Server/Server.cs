@@ -2,9 +2,14 @@
 using System.Net;
 using System.Text;
 using IkariamPlanner.Model;
+using IkariamPlanner.Server.Scrapers;
 
 namespace IkariamPlanner.Server {
     internal class Server : IDisposable {
+        private static readonly IScraper[] Scrapers = new[] {
+            new TownNameScraper()
+        };
+
         private static readonly byte[] SuccessResponse = Encoding.UTF8.GetBytes("OK");
         private readonly HttpListener Listener = new HttpListener();
         private readonly FileStore FileStore = new FileStore();
@@ -52,6 +57,9 @@ namespace IkariamPlanner.Server {
                     FileStore.SavePacket(pkt);
                     FileStore.SaveModel(Model);
                     PacketReceived?.Invoke();
+                    foreach (IScraper scraper in Scrapers) {
+                        scraper.Scrape(pkt, Model);
+                    }
                 }
             });
         }
