@@ -7,11 +7,11 @@ namespace IkariamPlanner.Model {
         public static ulong ParseInt(XmlNode node) {
             string text = node.InnerText.Trim();
             ulong factor = 1;
-            if (text.Length == 0) {
+            if (text.Length == 0 || text == "-") {
                 return 0;
             } else if (text.EndsWith("k")) {
                 factor = 1000;
-                text.Remove(text.Length - 1);
+                text = text.Remove(text.Length - 1);
             }
             return ulong.Parse(text.Trim(), NumberStyles.AllowThousands) * factor;
         }

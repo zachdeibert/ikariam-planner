@@ -8,7 +8,8 @@ browser.webRequest.onCompleted.addListener(ev => {
     });
 }, {
     "urls": [
-        "https://*.ikariam.gameforge.com/?view=*"
+        "https://*.ikariam.gameforge.com/?view=*",
+        "https://*.ikariam.gameforge.com/index.php"
     ],
     "types": [
         "main_frame",

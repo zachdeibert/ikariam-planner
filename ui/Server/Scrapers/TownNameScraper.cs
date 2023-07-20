@@ -19,7 +19,7 @@ namespace IkariamPlanner.Server.Scrapers {
                 string[] parts = node.InnerText.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 Coordinate coords = new Coordinate(parts[0]);
                 string name = parts[1];
-                if (town.Coords != coords || town.Name != name) {
+                if (!town.Coords.Equals(coords) || town.Name != name) {
                     town.Invalidate();
                     town.Coords = coords;
                     town.Name = name;

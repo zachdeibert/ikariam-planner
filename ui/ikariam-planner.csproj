@@ -67,6 +67,7 @@
     <Compile Include="Model\Building.cs" />
     <Compile Include="Model\BuildingLevel.cs" />
     <Compile Include="Model\Coordinate.cs" />
+    <Compile Include="Model\Format.cs" />
     <Compile Include="Model\StandardResources.cs" />
     <Compile Include="Model\StoredModel.cs" />
     <Compile Include="Model\Time.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Server\Packet.cs" />
     <Compile Include="Server\Scrapers\HelpBuildingScraper.cs" />
     <Compile Include="Server\Scrapers\TownNameScraper.cs" />
+    <Compile Include="Server\Scrapers\TownResourceScraper.cs" />
     <Compile Include="Server\Server.cs" />
     <Compile Include="Ui\SystemTray.cs" />
     <Compile Include="Ui\Ui.cs" />

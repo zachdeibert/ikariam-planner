@@ -32,7 +32,7 @@
     "permissions": [
         "tabs",
         "webRequest",
-        "https://*.ikariam.gameforge.com/?view=*",
+        "https://*.ikariam.gameforge.com/*",
         "http://localhost/ikariam-planner/*"
     ]
 }

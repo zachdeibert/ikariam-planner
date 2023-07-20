@@ -32,5 +32,15 @@ namespace IkariamPlanner.Server {
             Page.WriteTo(XmlWriter.Create(sb));
             return sb.ToString();
         }
+
+        private string townName = null;
+        public string TownName {
+            get {
+                if (townName == null) {
+                    townName = Page.SelectSingleNode("//html:div[@id=\"js_citySelectContainer\"]//html:a", Xmlns).InnerText.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1];
+                }
+                return townName;
+            }
+        }
     }
 }
