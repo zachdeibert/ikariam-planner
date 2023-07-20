@@ -8,6 +8,7 @@ namespace IkariamPlanner.Server {
     internal class Server : IDisposable {
         private static readonly IScraper[] Scrapers = new IScraper[] {
             new HelpBuildingScraper(),
+            new TownBuildingScraper(),
             new TownNameScraper(),
             new TownResourceScraper()
         };

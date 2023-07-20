@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -84,6 +85,8 @@ namespace IkariamPlanner.Model {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ResourcesUpdated"));
             }
         }
+
+        public readonly ObservableCollection<TownBuilding> Buildings = new ObservableCollection<TownBuilding>();
 
         public void Invalidate() {
             ResourcesInWarehouse = new StandardResources();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -59,6 +58,8 @@ namespace IkariamPlanner.Server.Scrapers {
             { "marineChartArchive", new [] { ColumnWood, ColumnMarble, ColumnCrystal, ColumnTime } },
             { "dockyard", new [] { ColumnWood, ColumnMarble, ColumnCrystal, ColumnTime } },
         };
+
+        public static IEnumerable<string> ValidBuildingIds = ColumnDefinitions.Keys;
 
         private static void ColumnAllowUnits(BuildingLevel model, XmlNode node) {
             foreach (XmlNode child in node.ChildNodes) {
