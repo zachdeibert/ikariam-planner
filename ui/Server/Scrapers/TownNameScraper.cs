@@ -8,7 +8,7 @@ namespace IkariamPlanner.Server.Scrapers {
         public void Scrape(Packet packet, StoredModel model) {
             IEnumerator<Town> it = model.Towns.GetEnumerator();
             LinkedList<Town> toChange = new LinkedList<Town>();
-            foreach (XmlNode node in packet.Page.DocumentElement.SelectNodes("//html:div[@id=\"dropDown_js_citySelectContainer\"]//html:a", packet.Xmlns)) {
+            foreach (XmlNode node in packet.Page.SelectNodes("//html:div[@id=\"dropDown_js_citySelectContainer\"]//html:a", packet.Xmlns)) {
                 Town town;
                 if (it.MoveNext()) {
                     town = it.Current;

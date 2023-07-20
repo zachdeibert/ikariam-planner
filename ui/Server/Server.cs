@@ -6,7 +6,8 @@ using IkariamPlanner.Server.Scrapers;
 
 namespace IkariamPlanner.Server {
     internal class Server : IDisposable {
-        private static readonly IScraper[] Scrapers = new[] {
+        private static readonly IScraper[] Scrapers = new IScraper[] {
+            new HelpBuildingScraper(),
             new TownNameScraper()
         };
 

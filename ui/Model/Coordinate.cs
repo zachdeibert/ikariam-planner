@@ -16,7 +16,7 @@ namespace IkariamPlanner.Model {
             }
         }
 
-        public static readonly Regex Regex = new Regex("^\\[?([0-9]+):([0-9]+)\\]?$");
+        private static readonly Regex Regex = new Regex("^\\[?([0-9]+):([0-9]+)\\]?$");
 
         public readonly int X;
         public readonly int Y;

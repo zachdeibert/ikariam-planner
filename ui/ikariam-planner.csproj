@@ -64,13 +64,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Building.cs" />
+    <Compile Include="Model\BuildingLevel.cs" />
     <Compile Include="Model\Coordinate.cs" />
+    <Compile Include="Model\StandardResources.cs" />
     <Compile Include="Model\StoredModel.cs" />
+    <Compile Include="Model\Time.cs" />
     <Compile Include="Model\Town.cs" />
     <Compile Include="Model\ViewModel.cs" />
     <Compile Include="Server\FileStore.cs" />
     <Compile Include="Server\IScraper.cs" />
     <Compile Include="Server\Packet.cs" />
+    <Compile Include="Server\Scrapers\HelpBuildingScraper.cs" />
     <Compile Include="Server\Scrapers\TownNameScraper.cs" />
     <Compile Include="Server\Server.cs" />
     <Compile Include="Ui\SystemTray.cs" />

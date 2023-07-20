@@ -9,6 +9,7 @@ const keepAttributes = [
     "class",
     "id",
     "max",
+    "title",
     "value"
 ];
 
